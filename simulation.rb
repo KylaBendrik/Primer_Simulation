@@ -32,6 +32,40 @@ class Blob
   end
 end
 
+class World
+  def initialize(size, num_blobs)
+    @size = size
+    @blobs = []
+
+    num_blobs.times do
+      @blobs.push(Blob.new(starting_coords, 1))
+    end
+  end
+
+  def starting_coords
+    # either x or y needs to be at 0 or @size
+    edge = 0
+    other = rand * @size
+    edge = 10 if rand > 0.5
+
+    if rand > 0.5
+      x = edge
+      y = other
+    else
+      y = edge
+      x = other
+    end
+
+    [x, y]
+  end
+
+  def display
+    puts "Num Blobs: #{@blobs.length}"
+  end
+end
+
 puts 'Congrats! You are running the simulation.'
-blob = Blob.new([2, 2], 1)
-blob.move
+
+world = World.new(10, 2)
+
+world.display
