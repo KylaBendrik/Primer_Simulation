@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Blob
+  attr_accessor :speed, :coordinates
   def initialize(coords, speed)
     @coordinates = [coords[0], coords[1]]
     @speed = speed
