@@ -2,9 +2,10 @@
 
 class Blob
   attr_accessor :speed, :coordinates
-  def initialize(coords, speed)
+  def initialize(coords, speed, sense)
     @coordinates = [coords[0], coords[1]]
     @speed = speed
+    @sense = sense
 
     puts "New Blob Coords: #{@coordinates[0]}, #{@coordinates[1]}"
   end
@@ -35,10 +36,13 @@ end
 class World
   def initialize(size, num_blobs)
     @size = size
+    @day = 0
+    @tick = 0
     @blobs = []
+    @food = []
 
     num_blobs.times do
-      @blobs.push(Blob.new(starting_coords, 1))
+      @blobs.push(Blob.new(starting_coords, 1, 1))
     end
   end
 
@@ -60,7 +64,29 @@ class World
   end
 
   def display
+    puts "Day: #{@day} / Tick: #{@tick}"
     puts "Num Blobs: #{@blobs.length}"
+    puts "Food: #{@food.length}"
+  end
+
+  def day
+    @day += 1
+    add_food(4)
+  end
+
+  def add_food(num_food)
+    num_food.times do
+      @food.push [(rand * @size), (rand * @size)]
+    end
+  end
+
+  def tick
+    @tick += 1
+    if @tick == 10
+      day
+      @tick = 0
+    end
+    display
   end
 end
 
@@ -68,4 +94,10 @@ puts 'Congrats! You are running the simulation.'
 
 world = World.new(10, 2)
 
-world.display
+world.day
+input = gets.chomp
+
+while input.empty?
+  world.tick
+  input = gets.chomp
+end
