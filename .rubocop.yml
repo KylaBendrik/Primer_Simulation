@@ -1,2 +1,2 @@
 Metrics/MethodLength:
-  Enabled: false
+  Max: 25

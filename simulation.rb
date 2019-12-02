@@ -26,9 +26,7 @@ class Blob
     new_x = old_x + delta_x
     new_y = old_y + delta_y
 
-    puts "You move #{length} units at an angle of #{radians} radians"
-    puts "Starting: #{old_x}, #{old_y}; Deltas: #{delta_x}, #{delta_y}"
-    puts "new coords: #{new_x}, #{new_y}"
+    puts "Blob moved #{length} units at an angle of #{radians.round(3)} radians"
     [new_x, new_y]
   end
 end
@@ -85,6 +83,9 @@ class World
     if @tick == 10
       day
       @tick = 0
+    end
+    @blobs.each do |blob|
+      blob.move
     end
     display
   end
